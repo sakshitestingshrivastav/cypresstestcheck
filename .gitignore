@@ -1,0 +1,16 @@
+# Ignore node_modules folder
+node_modules/
+
+# Ignore logs
+*.log
+npm-debug.log*
+
+# Ignore environment files
+.env
+
+# Ignore OS/system files
+.DS_Store
+Thumbs.db
+
+# Ignore README file
+README.md

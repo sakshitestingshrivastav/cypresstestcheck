@@ -1,0 +1,15 @@
+{
+  "name": "sakshi",
+  "version": "1.0.0",
+  "main": "test1.cy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "cypress": "^15.5.0"
+  }
+}
