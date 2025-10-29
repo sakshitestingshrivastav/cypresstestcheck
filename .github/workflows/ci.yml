@@ -1,57 +1,48 @@
-name: CI/CD Pipeline
+name: Run Cypress and Deploy Results to S3
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+    paths:
+      - 'cypress/**'     # Only run when cypress test files change
 
 jobs:
-  build:
+  cypress-tests:
     runs-on: ubuntu-latest
 
     steps:
-  
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: 18
 
       - name: Install dependencies
         run: npm install
-        
-      - name: Run tests
+
+      - name: Run Cypress tests
         run: npm test
 
-      - name: Build application
-        run: npm run build
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-files
-          path: ./build/
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      # Step 1: Download build artifacts from previous job
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-files
-          path: ./build/
-
-      # Step 2: Deploy to AWS S3 (example static site)
-      - name: Deploy to S3
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --delete
+      - name: Upload Cypress results to S3
+        if: success()
+        run: |
+          aws s3 cp cypress/ s3://$S3_BUCKET_NAME/cypress-results/ --recursive --region $AWS_REGION
         env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          SOURCE_DIR: ./build
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+
+      - name: Delete uploaded files (save cost)
+        if: success()
+        run: |
+          aws s3 rm s3://$S3_BUCKET_NAME/cypress-results/ --recursive --region $AWS_REGION
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+
