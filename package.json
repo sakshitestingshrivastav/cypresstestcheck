@@ -1,9 +1,9 @@
 {
   "name": "sakshi",
   "version": "1.0.0",
-  "main": ["test1.cy.js"],
+  "main": ["test.cy.js"],
   "scripts": {
-    "test": ["jest", "cypress run"]
+    "test": ["cypress run"]
   },
 
   "keywords": [],
