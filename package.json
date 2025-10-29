@@ -1,16 +1,12 @@
 {
-  "name": "sakshi",
+  "name": "sakshi-cypress-demo",
   "version": "1.0.0",
-  "main": ["test.cy.js"],
+  "description": "Cypress test project",
   "scripts": {
-    "test": ["cypress run"]
+    "test": "cypress run"
   },
-
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "devDependencies": {
-    "cypress": "^15.5.0"
+    "cypress": "^13.0.0"
   }
 }
+
