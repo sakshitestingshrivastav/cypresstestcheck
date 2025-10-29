@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": ["test1.cy.js"],
   "scripts": {
-    "test": "jest"
+    "test": ["jest", "cypress run"]
   },
+
   "keywords": [],
   "author": "",
   "license": "ISC",
