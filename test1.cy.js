@@ -1,4 +1,4 @@
-import LoginPage from '../support/pages/LoginPage.js'
+import LoginPage from './cypress/support/pages/LoginPage.js'
 
 describe('Wellsite Navigator Login Tests', () => {
   beforeEach(() => {
