@@ -24,12 +24,11 @@ jobs:
 
       - name: Build, tag & push image to ECR
         env:
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+              AWS_REGION: ${{ secrets.AWS_REGION }}
+              AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+              ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
         run: |
-          # build image
           docker build -t $ECR_REPOSITORY:latest .
-          # tag image properly
-          docker tag $ECR_REPOSITORY:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$ECR_REPOSITORY:latest
-          # push image
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$ECR_REPOSITORY:latest
+          docker tag $ECR_REPOSITORY:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:latest
+          docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:latest
+
