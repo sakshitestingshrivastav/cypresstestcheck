@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "aedf9285-aaf1-41d2-a507-162e3a2b9446",
+		"name": "Collection1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37397312",
+		"_collection_link": "https://api-test-5955.postman.co/workspace/My-Workspace~ed83e8c7-debc-4740-8dfe-791ba9fb9166/collection/37397312-aedf9285-aaf1-41d2-a507-162e3a2b9446?action=share&source=collection_link&creator=37397312"
+	},
+	"item": [
+		{
+			"name": "favorites2",
+			"item": [
+				{
+					"name": "Get favorite marker Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{stagingWEBToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{stagingNewURL}}/v2/web/favorite/marker",
+							"host": [
+								"{{stagingNewURL}}"
+							],
+							"path": [
+								"v2",
+								"web",
+								"favorite",
+								"marker"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get favorite folder Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{stagingWEBToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{stagingNewURL}}/v2/web/favorite/folder",
+							"host": [
+								"{{stagingNewURL}}"
+							],
+							"path": [
+								"v2",
+								"web",
+								"favorite",
+								"folder"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
