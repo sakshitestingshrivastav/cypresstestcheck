@@ -1,0 +1,39 @@
+name: Run Postman Collection (Newman)
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  postman:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Newman
+        run: npm install -g newman@5
+
+      - name: Run Postman collection
+        env:
+          STAGING_URL: ${{ secrets.stagingNewURL }}
+          STAGING_TOKEN: ${{ secrets.stagingWEBToken }}
+        run: |
+          mkdir -p test-results
+          # run collection and replace Postman variables used in collection
+          newman run postman/collection.json \
+            --env-var "stagingNewURL=${STAGING_URL}" \
+            --env-var "stagingWEBToken=${STAGING_TOKEN}" \
+            --reporters cli,junit \
+            --reporter-junit-export test-results/newman-junit.xml
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-results
+          path: test-results/
