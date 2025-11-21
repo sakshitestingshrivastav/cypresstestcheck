@@ -3,16 +3,17 @@ name: Run Postman Collection (Newman)
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  postman-tests:
+  postman:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: '18'
@@ -20,23 +21,20 @@ jobs:
       - name: Install Newman
         run: npm install -g newman@5
 
-      - name: Create results dir
-        run: mkdir -p test-results
-
-      - name: Run Postman collection with Newman
+      - name: Run Postman collection
         env:
-          BASE_URL: ${{ secrets.BASE_URL }}
-          API_KEY: ${{ secrets.API_KEY }}
+          STAGING_URL: ${{ secrets.stagingNewURL }}
+          STAGING_TOKEN: ${{ secrets.stagingWEBToken }}
         run: |
-          # Example: run collection.json and pass two env vars (replace paths as needed)
+          mkdir -p test-results
+          # run collection and replace Postman variables used in collection
           newman run postman/collection.json \
-            --env-var "baseUrl=${BASE_URL}" \
-            --env-var "apiKey=${API_KEY}" \
+            --env-var "stagingNewURL=${STAGING_URL}" \
+            --env-var "stagingWEBToken=${STAGING_TOKEN}" \
             --reporters cli,junit \
-            --reporter-junit-export test-results/newman-junit.xml \
-            --bail # optional: stop on first failure
+            --reporter-junit-export test-results/newman-junit.xml
 
-      - name: Upload test report artifact
+      - name: Upload test report
         uses: actions/upload-artifact@v4
         with:
           name: newman-results
