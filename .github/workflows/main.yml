@@ -3,8 +3,6 @@ name: Run Postman Collection (Newman)
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   postman:
