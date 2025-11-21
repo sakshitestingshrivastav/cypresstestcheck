@@ -26,7 +26,7 @@ jobs:
         run: |
           mkdir -p test-results
           # run collection and replace Postman variables used in collection
-          newman run Collection1.json \
+          newman run Collection1.postman_collection.json \
             --env-var "stagingNewURL=${STAGING_URL}" \
             --env-var "stagingWEBToken=${STAGING_TOKEN}" \
             --reporters cli,junit \
