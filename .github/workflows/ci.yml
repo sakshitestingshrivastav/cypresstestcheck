@@ -9,8 +9,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
   env:
-          APP_ENV: devvv
-          BUILD_TYPE: testttt
+    APP_ENV: devvv
+    BUILD_TYPE: testttt
 
     steps:
       - name: Checkout code
