@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_ENV: devvv
-      BUILD_TYPE: testttt
 
     steps:
       - name: Checkout code
@@ -21,6 +20,8 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    env:
+      BUILD_TYPE: testttt
 
     steps:
       - name: Checkout code
@@ -28,5 +29,6 @@ jobs:
 
       - name: Run a simple command
         run: echo "Running tests in $BUILD_TYPE"
+        run: echo "Using secret ${{ secrets.MY_SECRET }}"
 
 
