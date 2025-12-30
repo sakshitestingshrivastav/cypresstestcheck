@@ -1,48 +1,17 @@
-name: Run Cypress and Deploy Results to S3
+name: First CI Pipeline
 
 on:
   push:
     branches:
       - main
-    paths:
-      - 'cypress/**'     # Only run when cypress test files change
 
 jobs:
-  cypress-tests:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run Cypress tests
-        run: npm test
-
-      - name: Upload Cypress results to S3
-        if: success()
-        run: |
-          aws s3 cp cypress/ s3://$S3_BUCKET_NAME/cypress-results/ --recursive --region $AWS_REGION
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
-
-      - name: Delete uploaded files (save cost)
-        if: success()
-        run: |
-            aws s3 rm s3://$S3_BUCKET_NAME/cypress-results/ --recursive --region $AWS_REGION
-        env:
-            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            AWS_REGION: ${{ secrets.AWS_REGION }}
-            S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
-
+      - name: Run a simple command
+        run: echo "CI pipeline is running"
