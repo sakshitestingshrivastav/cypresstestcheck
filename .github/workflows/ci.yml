@@ -29,6 +29,8 @@ jobs:
 
       - name: Run a simple command
         run: echo "Running tests in $BUILD_TYPE"
+
+      - name: Run a command with secret variables
         run: echo "Using secret ${{ secrets.MY_SECRET }}"
 
 
