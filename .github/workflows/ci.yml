@@ -16,7 +16,7 @@ jobs:
       - name: Run a simple command
         env:
           APP_ENV: dev
-        run: echo "Building the app in APP_ENV: $APP_ENV"
+        run: echo "Building the app in $APP_ENV"
 
   test:
     runs-on: ubuntu-latest
@@ -29,6 +29,6 @@ jobs:
       - name: Run a simple command
         env:
           BUILD_TYPE: test
-        run: echo "Running tests in BUILD_TYPE: $BUILD_TYPE"
+        run: echo "Running tests in $BUILD_TYPE"
 
 
