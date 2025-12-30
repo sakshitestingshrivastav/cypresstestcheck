@@ -1,8 +1,5 @@
 name: Build and Push Docker Image
 
-on:
-  push:
-    branches: ["main"]  # triggers pipeline on push to main branch
 
 jobs:
   build:
