@@ -14,7 +14,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run a simple command
-        run: echo "Building the app...${{ secrets.APP_ENV }}"
+        env:
+          APP_ENV: dev
+        run: echo "Building the app in APP_ENV: $APP_ENV"
 
   test:
     runs-on: ubuntu-latest
@@ -25,6 +27,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run a simple command
-        run: echo "Running tests....${{ secrets.APP_ENV }}"
+        env:
+          BUILD_TYPE: test
+        run: echo "Running tests in BUILD_TYPE: $BUILD_TYPE"
 
 
