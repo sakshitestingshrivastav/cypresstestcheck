@@ -1,2 +1,0 @@
-# cypresstestcheck
-cypress testing project
