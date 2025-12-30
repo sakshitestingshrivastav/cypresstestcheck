@@ -15,3 +15,7 @@ jobs:
 
       - name: Run a simple command
         run: echo "CI pipeline ran successfully"
+
+      - name: Fail intentionally
+        run: exit 1
+
