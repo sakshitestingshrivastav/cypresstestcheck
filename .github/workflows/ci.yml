@@ -1,5 +1,4 @@
 name: First CI Pipeline
-
 on:
   push:
     branches:
