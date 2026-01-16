@@ -2,7 +2,7 @@ name: Run Postman Collection (Newman)
 
 on:
   push:
-    branches: [ main ]
+    # branches: [ main ]
 
 jobs:
   postman:
