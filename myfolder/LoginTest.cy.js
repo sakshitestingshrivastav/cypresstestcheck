@@ -1,4 +1,4 @@
-import '../support/commands'
+import '../cypress/support/commands'
 
 describe('template spec', () => {
   it('first test case', () => {
