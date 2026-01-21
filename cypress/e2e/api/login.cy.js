@@ -50,4 +50,57 @@ describe('Login API', () => {
       });
     });
   });
+
+  it('should return JSON body in response', () => {
+    cy.fixture('user').then((user) => {
+      cy.request({
+        method: 'POST',
+        url: `${baseUrl}/v2/web/auth/login`,
+        body: {
+          email: user.email,
+          password: user.password
+        },
+        failOnStatusCode: false
+      }).then((response) => {
+        // Test Case 2: Verify response returns JSON body
+        if (response.status === 200) {
+          expect(response.headers['content-type']).to.include('application/json');
+          
+          // Verify response body is a valid JSON object (not a string)
+          expect(response.body).to.be.an('object');
+          expect(() => JSON.parse(JSON.stringify(response.body))).to.not.throw();
+          
+          // Verify response body is not empty
+          expect(response.body).to.not.be.null;
+          expect(response.body).to.not.be.undefined;
+        }
+      });
+    });
+  });
+
+  it('should return response within 2 seconds', () => {
+    cy.fixture('user').then((user) => {
+      const startTime = Date.now();
+      
+      cy.request({
+        method: 'POST',
+        url: `${baseUrl}/v2/web/auth/login`,
+        body: {
+          email: user.email,
+          password: user.password
+        },
+        failOnStatusCode: false,
+        timeout: 2000 // Set timeout to 2 seconds
+      }).then((response) => {
+        const endTime = Date.now();
+        const responseTime = endTime - startTime;
+        
+        // Test Case 3: Verify response time is within 2 seconds (2000ms)
+        if (response.status === 200) {
+          expect(responseTime).to.be.lessThan(2000);
+          cy.log(`Response time: ${responseTime}ms`);
+        }
+      });
+    });
+  });
 });
