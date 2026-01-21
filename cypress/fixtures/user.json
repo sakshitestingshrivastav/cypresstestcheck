@@ -1,4 +1,5 @@
 {
+  "baseStagingApiUrl" : "https://api.wellsitenavigator.xyz",
     "email": "sakshi+user1@wellsitenavigator.com",
     "password": "Test@123"
   }
